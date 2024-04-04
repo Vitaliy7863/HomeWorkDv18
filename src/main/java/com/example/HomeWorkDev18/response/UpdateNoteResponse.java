@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 public class UpdateNoteResponse {
     private Error error;
-
     private Note updatedNote;
 
     public enum Error {

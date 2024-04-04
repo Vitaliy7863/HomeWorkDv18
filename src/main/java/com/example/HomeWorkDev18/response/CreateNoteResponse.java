@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class CreateNoteResponse {
     private Error error;
-
     private long createdNoteId;
 
     public enum Error {

@@ -25,14 +25,14 @@ public class NoteService {
     private final UserService userService;
     private final NoteRepository repository;
 
-    public CreateNoteResponse create(String username, CreateNoteRequest request) {
+    public CreateNoteResponse create(String login, CreateNoteRequest request) {
         Optional<CreateNoteResponse.Error> validationError = validateCreateFields(request);
 
         if (validationError.isPresent()) {
             return CreateNoteResponse.failed(validationError.get());
         }
 
-        User user = userService.findByUsername(username);
+        User user = userService.findByLogin(login);
 
         Note createdNote = repository.save(Note.builder()
                 .user(user)
@@ -43,13 +43,12 @@ public class NoteService {
         return CreateNoteResponse.success(createdNote.getId());
     }
 
-    public GetUserNotesResponse getUserNotes(String username) {
-        List<Note> userNotes = repository.getUserNotes(username);
-
+    public GetUserNotesResponse getUserNotes(String login) {
+        List<Note> userNotes = repository.getUserNotes(login);
         return GetUserNotesResponse.success(userNotes);
     }
 
-    public UpdateNoteResponse update(String username, UpdateNoteRequest request) {
+    public UpdateNoteResponse update(String login, UpdateNoteRequest request) {
         Optional<Note> optionalNote = repository.findById(request.getId());
 
         if (optionalNote.isEmpty()) {
@@ -58,7 +57,7 @@ public class NoteService {
 
         Note note = optionalNote.get();
 
-        boolean isNotUserNote = isNotUserNote(username, note);
+        boolean isNotUserNote = isNotUserNote(login, note);
 
         if (isNotUserNote) {
             return UpdateNoteResponse.failed(UpdateNoteResponse.Error.insufficientPrivileges);
@@ -78,7 +77,7 @@ public class NoteService {
         return UpdateNoteResponse.success(note);
     }
 
-    public DeleteNoteResponse delete(String username, long id) {
+    public DeleteNoteResponse delete(String login, long id) {
         Optional<Note> optionalNote = repository.findById(id);
 
         if (optionalNote.isEmpty()) {
@@ -87,7 +86,7 @@ public class NoteService {
 
         Note note = optionalNote.get();
 
-        boolean isNotUserNote = isNotUserNote(username, note);
+        boolean isNotUserNote = isNotUserNote(login, note);
 
         if (isNotUserNote) {
             return DeleteNoteResponse.failed(DeleteNoteResponse.Error.insufficientPrivileges);
@@ -104,7 +103,7 @@ public class NoteService {
         }
 
         if (Objects.isNull(request.getContent()) || request.getContent().length() > MAX_CONTENT_LENGTH) {
-            return Optional.of(CreateNoteResponse.Error.invalidTitle);
+            return Optional.of(CreateNoteResponse.Error.invalidContent);
         }
 
         return Optional.empty();
@@ -116,13 +115,13 @@ public class NoteService {
         }
 
         if (Objects.nonNull(request.getContent()) && request.getContent().length() > MAX_CONTENT_LENGTH) {
-            return Optional.of(UpdateNoteResponse.Error.invalidTitleLength);
+            return Optional.of(UpdateNoteResponse.Error.invalidContentLength);
         }
 
         return Optional.empty();
     }
 
-    private boolean isNotUserNote(String username, Note note) {
-        return !note.getUser().getLogin().equals(username);
+    private boolean isNotUserNote(String login, Note note) {
+        return !note.getUser().getLogin().equals(login);
     }
 }

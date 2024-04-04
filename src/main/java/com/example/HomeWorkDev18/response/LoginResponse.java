@@ -7,12 +7,11 @@ import lombok.Data;
 @Data
 public class LoginResponse {
     private Error error;
-
     private String authToken;
 
     public enum Error {
         ok,
-        invalidEmail,
+        invalidLogin,
         invalidPassword
     }
 

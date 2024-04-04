@@ -34,7 +34,6 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/auth/**").permitAll()
-
                         .anyRequest().authenticated()
                 )
                 .sessionManagement()
@@ -42,7 +41,6 @@ public class SecurityConfig {
                 .and()
                 .addFilterBefore(new JwtRequestFilter(authenticationManager(), userDetailsService, jwtUtil),
                         UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 

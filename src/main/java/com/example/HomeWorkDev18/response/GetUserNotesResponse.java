@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 public class GetUserNotesResponse {
     private Error error;
-
     private List<Note> userNotes;
 
     public enum Error {

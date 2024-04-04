@@ -17,9 +17,8 @@ import java.security.Principal;
 @RequestMapping("/notes")
 public class NoteController {
     private final NoteService noteService;
-    
 
-    @PostMapping("/create")
+    @PostMapping
     public CreateNoteResponse create(Principal principal, @RequestBody CreateNoteRequest request) {
         return noteService.create(principal.getName(), request);
     }
@@ -29,12 +28,12 @@ public class NoteController {
         return noteService.getUserNotes(principal.getName());
     }
 
-    @PatchMapping("/update")
+    @PatchMapping
     public UpdateNoteResponse update(Principal principal, @RequestBody UpdateNoteRequest request) {
         return noteService.update(principal.getName(), request);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public DeleteNoteResponse delete(Principal principal, @RequestParam(name = "id") long id) {
         return noteService.delete(principal.getName(), id);
     }

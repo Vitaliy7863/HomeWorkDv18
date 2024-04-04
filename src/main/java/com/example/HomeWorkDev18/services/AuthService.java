@@ -16,16 +16,15 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-    private static final int MAX_USER_ID_LENGTH = 100;
+    private static final int MAX_USER_LOGIN_LENGTH = 100;
     private static final int MAX_PASSWORD_LENGTH = 255;
-    private static final int MAX_NAME_LENGTH = 100;
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
     public RegistrationResponse register(RegistrationRequest request) {
-        User existingUser = userService.findByUsername(request.getLogin());
+        User existingUser = userService.findByLogin(request.getLogin());
 
         if (Objects.nonNull(existingUser)) {
             return RegistrationResponse.failed(RegistrationResponse.Error.userAlreadyExists);
@@ -53,10 +52,10 @@ public class AuthService {
             return LoginResponse.failed(validationError.get());
         }
 
-        User user = userService.findByUsername(request.getLogin());
+        User user = userService.findByLogin(request.getLogin());
 
         if (Objects.isNull(user)) {
-            return LoginResponse.failed(LoginResponse.Error.invalidEmail);
+            return LoginResponse.failed(LoginResponse.Error.invalidLogin);
         }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
@@ -69,7 +68,7 @@ public class AuthService {
     }
 
     private Optional<RegistrationResponse.Error> validateRegistrationFields(RegistrationRequest request) {
-        if (Objects.isNull(request.getLogin()) || request.getLogin().length() > MAX_USER_ID_LENGTH) {
+        if (Objects.isNull(request.getLogin()) || request.getLogin().length() > MAX_USER_LOGIN_LENGTH) {
             return Optional.of(RegistrationResponse.Error.invalidEmail);
         }
 
@@ -77,7 +76,7 @@ public class AuthService {
             return Optional.of(RegistrationResponse.Error.invalidPassword);
         }
 
-        if (Objects.isNull(request.getName()) || request.getName().length() > MAX_USER_ID_LENGTH) {
+        if (Objects.isNull(request.getName()) || request.getName().length() > MAX_USER_LOGIN_LENGTH) {
             return Optional.of(RegistrationResponse.Error.invalidName);
         }
 
@@ -85,8 +84,8 @@ public class AuthService {
     }
 
     private Optional<LoginResponse.Error> validateLoginFields(LoginRequest request) {
-        if (Objects.isNull(request.getLogin()) || request.getLogin().length() > MAX_USER_ID_LENGTH) {
-            return Optional.of(LoginResponse.Error.invalidEmail);
+        if (Objects.isNull(request.getLogin()) || request.getLogin().length() > MAX_USER_LOGIN_LENGTH) {
+            return Optional.of(LoginResponse.Error.invalidLogin);
         }
 
         if (Objects.isNull(request.getPassword()) || request.getPassword().length() > MAX_PASSWORD_LENGTH) {
