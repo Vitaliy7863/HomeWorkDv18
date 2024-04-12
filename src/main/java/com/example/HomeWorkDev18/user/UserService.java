@@ -1,7 +1,6 @@
-package com.example.HomeWorkDev18.services;
+package com.example.HomeWorkDev18.user;
 
-import com.example.HomeWorkDev18.model.User;
-import com.example.HomeWorkDev18.repositories.UserRepository;
+import com.example.HomeWorkDev18.security.SecurityConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +11,13 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository repository;
 
-    public User findByLogin(String login) {
-        Optional<User> user = repository.findByLogin(login);
+    public SecurityConfig.User findByLogin(String login) {
+        Optional<SecurityConfig.User> user = repository.findByLogin(login);
 
         return user.orElse(null);
     }
 
-    public void saveUser(User user) {
+    public void saveUser(SecurityConfig.User user) {
         repository.save(user);
     }
 }

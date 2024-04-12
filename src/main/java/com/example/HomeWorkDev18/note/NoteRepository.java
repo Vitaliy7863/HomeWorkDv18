@@ -1,6 +1,5 @@
-package com.example.HomeWorkDev18.repositories;
+package com.example.HomeWorkDev18.note;
 
-import com.example.HomeWorkDev18.model.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,6 +1,5 @@
-package com.example.HomeWorkDev18.filters;
+package com.example.HomeWorkDev18.security;
 
-import com.example.HomeWorkDev18.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

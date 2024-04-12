@@ -1,10 +1,9 @@
-package com.example.HomeWorkDev18.controllers;
+package com.example.HomeWorkDev18.auth;
 
-import com.example.HomeWorkDev18.request.LoginRequest;
-import com.example.HomeWorkDev18.request.RegistrationRequest;
-import com.example.HomeWorkDev18.response.LoginResponse;
-import com.example.HomeWorkDev18.response.RegistrationResponse;
-import com.example.HomeWorkDev18.services.AuthService;
+import com.example.HomeWorkDev18.auth.response.LoginResponse;
+import com.example.HomeWorkDev18.auth.response.RegistrationResponse;
+import com.example.HomeWorkDev18.auth.request.LoginRequest;
+import com.example.HomeWorkDev18.auth.request.RegistrationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

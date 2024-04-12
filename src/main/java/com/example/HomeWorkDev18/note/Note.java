@@ -1,5 +1,6 @@
-package com.example.HomeWorkDev18.model;
+package com.example.HomeWorkDev18.note;
 
+import com.example.HomeWorkDev18.security.SecurityConfig;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -22,7 +23,7 @@ public class Note {
     @ManyToOne
     @JoinColumn(name = "login", referencedColumnName = "login")
     @JsonIgnore
-    private User user;
+    private SecurityConfig.User user;
 
     @Column(name = "title", nullable = false)
     private String title;

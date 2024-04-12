@@ -1,4 +1,4 @@
-package com.example.HomeWorkDev18.response;
+package com.example.HomeWorkDev18.auth.response;
 
 import lombok.Builder;
 import lombok.Data;

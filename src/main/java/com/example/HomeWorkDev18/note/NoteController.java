@@ -1,12 +1,11 @@
-package com.example.HomeWorkDev18.controllers;
+package com.example.HomeWorkDev18.note;
 
-import com.example.HomeWorkDev18.request.CreateNoteRequest;
-import com.example.HomeWorkDev18.request.UpdateNoteRequest;
-import com.example.HomeWorkDev18.response.CreateNoteResponse;
-import com.example.HomeWorkDev18.response.DeleteNoteResponse;
-import com.example.HomeWorkDev18.response.GetUserNotesResponse;
-import com.example.HomeWorkDev18.response.UpdateNoteResponse;
-import com.example.HomeWorkDev18.services.NoteService;
+import com.example.HomeWorkDev18.note.response.CreateNoteResponse;
+import com.example.HomeWorkDev18.note.response.DeleteNoteResponse;
+import com.example.HomeWorkDev18.note.response.GetUserNotesResponse;
+import com.example.HomeWorkDev18.note.response.UpdateNoteResponse;
+import com.example.HomeWorkDev18.note.request.CreateNoteRequest;
+import com.example.HomeWorkDev18.note.request.UpdateNoteRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

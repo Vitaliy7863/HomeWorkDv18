@@ -1,6 +1,6 @@
-package com.example.HomeWorkDev18.response;
+package com.example.HomeWorkDev18.note.response;
 
-import com.example.HomeWorkDev18.model.Note;
+import com.example.HomeWorkDev18.note.Note;
 import lombok.Builder;
 import lombok.Data;
 

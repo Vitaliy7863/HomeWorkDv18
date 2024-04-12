@@ -1,4 +1,4 @@
-package com.example.HomeWorkDev18.response;
+package com.example.HomeWorkDev18.note.response;
 
 import lombok.Builder;
 import lombok.Data;

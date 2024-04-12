@@ -1,4 +1,4 @@
-package com.example.HomeWorkDev18.util;
+package com.example.HomeWorkDev18.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

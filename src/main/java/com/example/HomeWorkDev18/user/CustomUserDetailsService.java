@@ -1,7 +1,6 @@
-package com.example.HomeWorkDev18.services;
+package com.example.HomeWorkDev18.user;
 
-import com.example.HomeWorkDev18.model.User;
-import com.example.HomeWorkDev18.repositories.UserRepository;
+import com.example.HomeWorkDev18.security.SecurityConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +16,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userRepository.findByLogin(login)
+        SecurityConfig.User user = userRepository.findByLogin(login)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + login));
 
         return new org.springframework.security.core.userdetails.User(
