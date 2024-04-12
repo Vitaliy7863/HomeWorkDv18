@@ -5,7 +5,7 @@ import com.example.HomeWorkDev18.auth.response.RegistrationResponse;
 import com.example.HomeWorkDev18.auth.request.LoginRequest;
 import com.example.HomeWorkDev18.auth.request.RegistrationRequest;
 import com.example.HomeWorkDev18.security.JwtUtil;
-import com.example.HomeWorkDev18.security.SecurityConfig;
+import com.example.HomeWorkDev18.user.User;
 import com.example.HomeWorkDev18.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +25,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
 
     public RegistrationResponse register(RegistrationRequest request) {
-        SecurityConfig.User existingUser = userService.findByLogin(request.getLogin());
+        User existingUser = userService.findByLogin(request.getLogin());
 
         if (Objects.nonNull(existingUser)) {
             return RegistrationResponse.failed(RegistrationResponse.Error.userAlreadyExists);
@@ -37,7 +37,7 @@ public class AuthService {
             return RegistrationResponse.failed(validationError.get());
         }
 
-        userService.saveUser(SecurityConfig.User.builder()
+        userService.saveUser(User.builder()
                 .login(request.getLogin())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
@@ -53,7 +53,7 @@ public class AuthService {
             return LoginResponse.failed(validationError.get());
         }
 
-        SecurityConfig.User user = userService.findByLogin(request.getLogin());
+        User user = userService.findByLogin(request.getLogin());
 
         if (Objects.isNull(user)) {
             return LoginResponse.failed(LoginResponse.Error.invalidLogin);

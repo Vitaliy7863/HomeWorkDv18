@@ -6,8 +6,8 @@ import com.example.HomeWorkDev18.note.response.GetUserNotesResponse;
 import com.example.HomeWorkDev18.note.response.UpdateNoteResponse;
 import com.example.HomeWorkDev18.note.request.CreateNoteRequest;
 import com.example.HomeWorkDev18.note.request.UpdateNoteRequest;
+import com.example.HomeWorkDev18.user.User;
 import com.example.HomeWorkDev18.user.UserService;
-import com.example.HomeWorkDev18.security.SecurityConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ public class NoteService {
             return CreateNoteResponse.failed(validationError.get());
         }
 
-        SecurityConfig.User user = userService.findByLogin(login);
+        User user = userService.findByLogin(login);
 
         Note createdNote = repository.save(Note.builder()
                 .user(user)

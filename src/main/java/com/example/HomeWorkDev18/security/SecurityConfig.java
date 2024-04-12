@@ -1,8 +1,6 @@
 package com.example.HomeWorkDev18.security;
 
 import com.example.HomeWorkDev18.user.CustomUserDetailsService;
-import com.example.HomeWorkDev18.note.Note;
-import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -50,26 +46,5 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager()
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Entity
-    @Table(name = "users")
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class User {
-        @Id
-        @Column(name = "login")
-        private String login;
-
-        @Column(name = "password_hash", nullable = false)
-        private String passwordHash;
-
-        @Column(name = "name", nullable = false)
-        private String name;
-
-        @OneToMany(mappedBy = "user")
-        List<Note> notes;
     }
 }
